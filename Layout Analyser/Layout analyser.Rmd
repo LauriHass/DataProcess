@@ -5,9 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-install.packages("usethis") # Installing usethis package to log into
-library(usethis)
-use_git_config(user.name = "LauriHass", user.email = "lauri@kumano.ee")
+
 ```
 
 ## R Markdown
