@@ -1,0 +1,215 @@
+---
+title: '**Testing setup**'
+author: "Pull-out"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+
+packages <- c(
+  'ggplot2',
+  'ggrepel',
+  'patchwork',
+  'ggraph',
+  'dplyr',
+  'gganimate',
+  'gifski',
+  'ggforce',
+  'ggthemes',
+  'maps',
+  'sf',
+  'tidyr',
+  'concaveman',
+  'remotes',
+  'scales',
+  'lubridate',
+  'plotly',
+  'gapminder',
+  'stringr',
+  'readr',
+  'plyr',
+  'tools',
+  'magick',
+  'ggimage'
+)
+
+
+library(ggplot2)
+library(scales)
+library(lubridate)
+library(plotly)
+library(gapminder)
+library(stringr)
+library(readr)
+library(dplyr)
+library(plyr)
+library(tools)
+library(magick)
+library(ggimage)
+
+suppressWarnings(suppressMessages(library(ggplot2)))
+suppressWarnings(suppressMessages(library(scales)))
+suppressWarnings(suppressMessages(library(lubridate)))
+suppressWarnings(suppressMessages(library(plotly)))
+suppressWarnings(suppressMessages(library(gapminder)))
+suppressWarnings(suppressMessages(library(readr)))
+suppressWarnings(suppressMessages(library(magick)))
+suppressWarnings(suppressMessages(library(ggimage)))
+```
+
+
+
+```{r load data, echo=FALSE}
+
+#Reading in the .csv files
+pullout <- list.files(path = ".", pattern = "*.csv", full.names = TRUE) #read in the list of .csv files in the folder and define the list as "pullout"
+
+for(i in 1:length(pullout)){                               #use a for loop from 1 to "pullout" list length
+assign(paste0("data", i),                                 #assigning a value to a name - pasting the the word "data" followed by the list number i
+              read.csv2(pullout[i], #reading the csv file with the number of i
+                   skip = 9, #we skip the first 9 lines
+                   header = FALSE, #won't take into account the headers, as the files don't have a proper header
+                   sep = ";", #the seperator in the csv is ; (this is default in csv2, but marking it down anyways)
+                   dec = ".", #decimals are marked as . and not ,
+                   quote = "\"'", #some of the values in the csv are in quote marks, so we make sure the script knows this
+                   col.names = c("Time", "Load", "Displacement", "LVDT"))) #we rename the columns to what they actually are
+                   
+} 
+
+#Making plots from the .csv files that were read in
+
+listofnames <- list.files(path = ".", pattern = "*.csv", full.names = FALSE)
+
+for(i in 1:length(pullout)){
+  assign(paste0("title", i), listofnames[i])
+}
+
+
+```
+
+```{r plot1, echo=FALSE}
+
+#Plot number 1
+
+if (exists("data1")){      #Checks if plot file exists
+plot1 <- ggplot(data1) + #plots data1 ggplot2
+  geom_line(aes(Displacement, Load), alpha=1) + # Assigning what data I want plotted
+                coord_cartesian(xlim = c(0, max(data1$Displacement)), ylim = c(0, max(data1$Load))) + # limits the x-y axis to max values
+                xlab("Displacement [mm]") + #assigns names to axis and titles the graph
+                ylab("Load [kN]") + 
+                ggtitle(title1) +  
+                theme_bw() + 
+                annotate("text",20, 14.5, label = "Grinded screw \n Printed 1 layer \n 16mm hole in the plate") # Place a text on the plot
+}
+
+if (exists("data1")){plot1}
+```
+
+```{r plot2, echo=FALSE}
+#Plot number 2
+
+if (exists("data2")){       #Checks if plot file exists
+  plot2 <- ggplot(data2) + #plots data2 ggplot2
+  geom_line(aes(Displacement, Load))+  # Assigning what data I want plotted
+                #xlim = c(0, max(data2$Displacement)), 
+                #ylim = c(0, max(data2$Load))) + # limits the x-y axis to max values
+                xlab("Displacement [mm]") + #assigns names to axis and titles the graph
+                ylab("Load [kN]") + 
+                ggtitle(title2) +  
+                theme_bw() + 
+                annotate("text",15, 19, label = "Normal screw \n Printed 1 layer \n 40mm hole in the plate") + # Place a text on the plot
+  geom_line(aes(abs(LVDT), Load))
+ 
+}
+
+if (exists("data2")){plot2}
+
+```
+
+```{r plot3, echo=FALSE}
+#Plot number 3
+
+if (exists("data3")){     #Checks if plot file exists
+plot3 <- ggplot(data3) + #plots data3 ggplot2
+  geom_line(aes(Displacement, Load), alpha=1) + # Assigning what data I want plotted
+                coord_cartesian(xlim = c(0, max(data3$Displacement)), ylim = c(0, max(data3$Load))) + # limits the x-y axis to max values
+                xlab("Displacement [mm]") + #assigns names to axis and titles the graph
+                ylab("Load [kN]") + 
+                ggtitle(title3) +  
+                theme_bw() + 
+                annotate("text",1, 14.5, label = "Normal screw \n Printed 5 layer \n 16mm hole in the plate \n Test failed in yielding of the screw")# Place a text on the plot
+}
+
+if (exists("data3")){plot3}
+
+
+```
+
+```{r plot4, echo=FALSE}
+#Plot number 4
+
+if (exists("data4")){      #Checks if plot file exists
+plot4 <- ggplot(data4) + #plots data4 ggplot2
+  geom_line(aes(Displacement, Load), alpha=1) + # Assigning what data I want plotted
+                coord_cartesian(xlim = c(0, max(data4$Displacement)), ylim = c(0, max(data4$Load))) + # limits the x-y axis to max values
+                xlab("Displacement [mm]") + #assigns names to axis and titles the graph
+                ylab("Load [kN]") + 
+                ggtitle(title4) +  
+                theme_bw() + 
+                annotate("text",15, 20, label = "Normal Screw \n Printed 5 layer \n 40mm hole in the plate")# Place a text on the plot
+
+}
+
+if (exists("data4")){plot4}
+
+
+```
+
+```{r plot5, echo=FALSE}
+#Plot number 5
+
+if (exists("data5")){    #Checks if plot file exists
+plot5 <- ggplot(data5) + #plots data5 ggplot2
+  geom_line(aes(Displacement, Load), alpha=1) + # Assigning what data I want plotted
+                coord_cartesian(xlim = c(0, max(data5$Displacement)), ylim = c(0, max(data5$Load))) + # limits the x-y axis to max values
+                xlab("Displacement [mm]") + #assigns names to axis and titles the graph
+                ylab("Load [kN]") + 
+                ggtitle(title5) +  
+                theme_bw() + 
+                annotate("text",30, 14.5, label = "Grinded screw \n Printed 1 layer \n 16mm hole in the plate")# Place a text on the plot
+}
+
+if (exists("data5")){plot5}
+
+```
+
+
+
+```{r plotcombine, echo=FALSE}
+
+data1 <-cbind(data1,series = 1)    #creating a new column "series" with the value 1
+data2 <-cbind(data2,series = 2)
+data3 <-cbind(data3,series = 3)
+data4 <-cbind(data4,series = 4)
+
+datall <- rbind(data1,data2,data3,data4)    #binding all the data frames on top of each other, so i can segment them through "series" column
+
+datall$series <- factor(datall$series)
+
+ggplot(datall, aes(x=Displacement, y=Load))+
+  geom_line(aes(color=series), size = 0.8) + 
+  theme_bw() + 
+  xlab("Displacement [mm]") +
+  ylab("Load [kN]") +
+  scale_x_continuous(limits = c(0,30))+
+  scale_colour_discrete(name = "Specimen", labels = c("Grinded 16mm", "Normal 40mm ","Normal 16mm","Normal 40mm")) + 
+  theme(legend.position = c(0.8,0.8)) +
+  
+ggsave("plot.pdf")
+  
+```
