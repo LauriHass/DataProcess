@@ -71,7 +71,7 @@ script <- readLines("SmallPlate1.mpf") # Reading in the script and removing whit
   #str_remove("C.+") %>% # Remove starting with C
   #str_trim(side = "both")# Remove starting with Trimming whitespace
 
-script2 <- str_extract_all(script, "((?<=X(?=\\d))\\d.\\d{1,})|((?<=X-(?=\\d))\\d.\\d{1,})", simplify = TRUE)
+script2 <- str_extract_all(script, "[X][0.-9]{1,9}|[X][-0.-9]{1,9}|[Y][0.-9]{1,9}|[Y][-0.-9]{1,9}|[Z][0.-9]{1,9}|[Z][-0.-9]{1,9}gm", simplify = TRUE)
  # str_extract_all("X-\\d+.\\d+") %>%
  # str_extract_all("Y\\d+.\\d+") #%>%
  # str_extract("Y-\\d+.\\d+") # %>%

@@ -104,7 +104,8 @@ plot1 <- ggplot(data1) + #plots data1 ggplot2
                 ylab("Load [kN]") + 
                 ggtitle(title1) +  
                 theme_bw() + 
-                annotate("text",20, 14.5, label = "Grinded screw \n Printed 1 layer \n 16mm hole in the plate") # Place a text on the plot
+                annotate("text",20, 14.5, label = "Grinded screw \n Printed 1 layer \n 16mm hole in the plate")+ # Place a text on the plot
+                  ggsave("plot1.pdf") 
 }
 
 if (exists("data1")){plot1}
@@ -123,7 +124,8 @@ if (exists("data2")){       #Checks if plot file exists
                 ggtitle(title2) +  
                 theme_bw() + 
                 annotate("text",15, 19, label = "Normal screw \n Printed 1 layer \n 40mm hole in the plate") + # Place a text on the plot
-  geom_line(aes(abs(LVDT), Load))
+  geom_line(aes(abs(LVDT), Load))+
+                  ggsave("plot2.pdf")
  
 }
 
@@ -142,8 +144,8 @@ plot3 <- ggplot(data3) + #plots data3 ggplot2
                 ylab("Load [kN]") + 
                 ggtitle(title3) +  
                 theme_bw() + 
-                annotate("text",1, 14.5, label = "Normal screw \n Printed 5 layer \n 16mm hole in the plate \n Test failed in yielding of the screw")# Place a text on the plot
-}
+                annotate("text",1, 14.5, label = "Normal screw \n Printed 5 layer \n 16mm hole in the plate \n Test failed in yielding of the screw")+ # Place a text on the plot
+                ggsave("plot3.pdf")}
 
 if (exists("data3")){plot3}
 
@@ -161,7 +163,8 @@ plot4 <- ggplot(data4) + #plots data4 ggplot2
                 ylab("Load [kN]") + 
                 ggtitle(title4) +  
                 theme_bw() + 
-                annotate("text",15, 20, label = "Normal Screw \n Printed 5 layer \n 40mm hole in the plate")# Place a text on the plot
+                annotate("text",15, 20, label = "Normal Screw \n Printed 5 layer \n 40mm hole in the plate")+ # Place a text on the plot
+                ggsave("plot4.pdf")
 
 }
 
@@ -181,7 +184,8 @@ plot5 <- ggplot(data5) + #plots data5 ggplot2
                 ylab("Load [kN]") + 
                 ggtitle(title5) +  
                 theme_bw() + 
-                annotate("text",30, 14.5, label = "Grinded screw \n Printed 1 layer \n 16mm hole in the plate")# Place a text on the plot
+                annotate("text",30, 14.5, label = "Grinded screw \n Printed 1 layer \n 16mm hole in the plate")+# Place a text on the plot
+                ggsave("plot5.pdf")
 }
 
 if (exists("data5")){plot5}
