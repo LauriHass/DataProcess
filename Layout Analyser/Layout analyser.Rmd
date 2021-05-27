@@ -55,28 +55,28 @@ suppressWarnings(suppressMessages(library(readr)))
 
 script <- readLines("SmallPlate1.mpf") # Reading in the script and removing whitespace, =;><-# and other marks from the text. I only want the code left.
 
-#script.ws <- trimws(script) %>%
-  #str_replace_all("\t","") %>%
-  #str_replace_all(">","") %>%
-  #str_replace_all("<","") %>%
-  #str_replace_na(replacement = "NA") %>%
-  #str_replace_all("#","") %>% #replacing # with empty space
-  #str_remove(";.+") %>% #Removing certain parts of the code starting with ;
-  #str_remove("T.+") %>% # Remove starting with T
-  #str_remove("R1.+") %>% # Remove starting with R1
-  #str_remove("H.+") %>% # Remove starting with H
-  #str_remove("M.+") %>% # Remove starting with M
-  #str_remove("BS.+") %>% # Remove starting with BS
-  #str_remove("F.+") %>% # Remove starting with F
-  #str_remove("C.+") %>% # Remove starting with C
-  #str_trim(side = "both")# Remove starting with Trimming whitespace
+script.ws <- trimws(script) %>%
+  str_replace_all("\t","") %>%
+  str_replace_all(">","") %>%
+  str_replace_all("<","") %>%
+  str_replace_na(replacement = "NA") %>%
+  str_replace_all("#","") %>% #replacing # with empty space
+  str_remove(";.+") %>% #Removing certain parts of the code starting with ;
+  str_remove("T.+") %>% # Remove starting with T
+  str_remove("R1.+") %>% # Remove starting with R1
+  str_remove("H.+") %>% # Remove starting with H
+  str_remove("M.+") %>% # Remove starting with M
+  str_remove("BS.+") %>% # Remove starting with BS
+  str_remove("F.+") %>% # Remove starting with F
+  str_remove("C.+") %>% # Remove starting with C
+  str_trim(side = "both")# Remove starting with Trimming whitespace
 
 script2 <- str_extract_all(script, "[X][0.-9]{1,9}|[X][-0.-9]{1,9}|[Y][0.-9]{1,9}|[Y][-0.-9]{1,9}|[Z][0.-9]{1,9}|[Z][-0.-9]{1,9}gm", simplify = TRUE)
- # str_extract_all("X-\\d+.\\d+") %>%
- # str_extract_all("Y\\d+.\\d+") #%>%
- # str_extract("Y-\\d+.\\d+") # %>%
- # str_extract("Z\\d+.\\d+") %>%
- # str_extract("Z-\\d+.\\d+")
+ str_extract_all("X-\\d+.\\d+") %>%
+ str_extract_all("Y\\d+.\\d+") #%>%
+ str_extract("Y-\\d+.\\d+") # %>%
+ str_extract("Z\\d+.\\d+") %>%
+ str_extract("Z-\\d+.\\d+")
     
 
 #script2[sapply(script2, nchar) > 0] # Removing empty lines from the script
